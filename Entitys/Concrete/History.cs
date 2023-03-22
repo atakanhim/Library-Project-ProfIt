@@ -31,6 +31,11 @@ namespace Entities.Concrete
         public double PriceTotal { get; set; } = 0;
 
         [Required]
+        public bool HistoryStatus { get; set; }// false ise Status kapanmıs
+           // ve fiyat ödenmiş ve kitap tekrardan checkout durumuna geçmiş demektir. 
+           //True ise bu kitap alinmiş ama geri verilmmeiş demektir.
+
+        [Required]
         [ForeignKey("Books")]
         public int BookId { get; set; }
         public Books? Books { get; set; }
