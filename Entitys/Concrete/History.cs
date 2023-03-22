@@ -23,8 +23,10 @@ namespace Entities.Concrete
         [Required]
         public DateTime? CheckOutDate{ get; set; } = DateTime.Now;// kitap cikis tarihi seciliyor varsayılan deger siimdi.
         [Required]
-        public DateTime? ExpectedCheckInDate { get; set; } = DateTime.Now.AddDays(15);// aynı kodu eger baska gun
-                                                                // check out yapacaksakta secmemiz gerekecek
+        public DateTime? ExpectedCheckoutDate { get; set; } = DateTime.Now.AddDays(15);// aynı kodu eger baska gun
+                                                                                       // check out yapacaksakta secmemiz gerekecek
+        [Required]
+        public DateTime? CheckInDate { get; } = null;// gerçekleşen teslim tarihi 
         [Required]
         public double PriceTotal { get; set; } = 0;
 
