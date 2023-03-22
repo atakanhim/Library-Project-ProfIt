@@ -1,8 +1,14 @@
+using BL.Abstract;
+using BL.Concrete;
+using DAL.Abstract;
+using DAL.Concrete.EntityFramework;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-
+builder.Services.AddSingleton<IBookService, BookManager>();
+builder.Services.AddSingleton<IBookDal, EfBookDal>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

@@ -36,9 +36,9 @@ namespace Entities.Concrete
            //True ise bu kitap alinmiş ama geri verilmmeiş demektir.
 
         [Required]
-        [ForeignKey("Books")]
+        [ForeignKey("Book")]
         public int BookId { get; set; }
-        public Books? Books { get; set; }
+        public Book? Book { get; set; }
  
 
 
