@@ -10,7 +10,7 @@ namespace Core.DataAccess.Abstract
     public interface IEntityRepository<T> 
     {
         List<T> GetList(Expression <Func<T,bool>>? filter =null); // delege
-        T Get(Expression<Func<T, bool>> filter);  
+        T? Get(Expression<Func<T, bool>> filter);  
 
         void Add(T entity);
         void Update(T entity);

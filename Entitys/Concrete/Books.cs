@@ -17,11 +17,18 @@ namespace Entities.Concrete
         [Required]
         public string? BookAuthor { get; set;}
         [Required]
-        public long ISBN { get; set; }
+        [MaxLength(13)]
+        public string? ISBN { get; set; }
         [Required]
-        public DateTime? YayinYili { get; set; }// Yayin Yılı
+        public DateTime? PublicationDate { get; set; }// Yayin Yılı
         [Required]
-        public bool CheckInStatus { get; set; }// True = CheckIn yapılabilir anlamadında , false ise kitap başka birinde demek.
+        public double Price { get; set; }
+        [Required]
+        public bool CheckOutStatus { get; set; }// True = CheckOut yapılabilir anlamadında ,
+                                                // false ise kitap başka birinde demek.
+
+
+
 
     }
 }

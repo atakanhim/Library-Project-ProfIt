@@ -38,14 +38,18 @@ namespace Core.DataAccess.Concrete.EntityFramework
             }
         }
 
-        public TEntity Get(Expression<Func<TEntity, bool>> filter)
+        public TEntity? Get(Expression<Func<TEntity, bool>> filter)
         {
             using (TContext context = new TContext())
             {
+                        var x =  context.Set<TEntity>()
+                      .AsNoTracking()
+                      .Where(filter)
+                      .FirstOrDefault();
 
-                return context.Set<TEntity>()
-                              .SingleOrDefault(filter);
-
+                if (x == null)
+                    return null;
+                return x;
             }
         }
 
