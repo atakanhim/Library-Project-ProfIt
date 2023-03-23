@@ -13,7 +13,9 @@ namespace BL.Abstract
         List<History> GetAll();
 
         History GetHistoryWithBook(Expression<Func<History, bool>> filter);
-    //    List<History> GetByCategory(int categoryId);
+        
+
+        void UpdateHistory(History history);
 
         void AddHistory(History History);
     }

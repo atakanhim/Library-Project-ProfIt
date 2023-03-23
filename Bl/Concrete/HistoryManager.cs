@@ -31,7 +31,12 @@ namespace BL.Concrete
         public History GetHistoryWithBook(Expression<Func<History, bool>> filter)
         {
            var History = _historyDal.GetHistoryWithBook(filter);
-            return History?? null;
+            return History ?? null;
+        }
+
+        public void UpdateHistory(History history)
+        {
+            _historyDal.Update(history);
         }
     }
 }

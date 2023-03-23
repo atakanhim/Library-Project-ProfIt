@@ -2,6 +2,7 @@
 using Entities.Concrete;
 using Microsoft.AspNetCore.Mvc;
 using proje_profit.Models;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace proje_profit.Controllers
 {
@@ -29,17 +30,28 @@ namespace proje_profit.Controllers
         {
             try
             {
-                if (history.CheckOutDate == null)
+
+                var myNewDate = history.CheckOutDate.Value.AddDays(15);
+
+
+                DateTime? _checkoutdate = history.CheckOutDate;
+                if (_checkoutdate == null)
                     history.CheckOutDate = DateTime.Now;
+                else if (_checkoutdate > DateTime.Now)// client tarafındada küçükse kontrl edilcel
+                    history.ExpectedCheckoutDate=myNewDate.Date;
+
+                
+
                 _historyService.AddHistory(history);
+
 
                 _bookService.ChangeCheckOutStatus(history.BookId);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Books");
         }
         public IActionResult CheckInView(int id)
         {    
@@ -58,19 +70,21 @@ namespace proje_profit.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult CheckInView(History history)
         {
-            //try
-            //{
-            //    if (history.CheckOutDate == null)
-            //        history.CheckOutDate = DateTime.Now;
-            //    _historyService.AddHistory(history);
+            var historyModel = _historyService.GetHistoryWithBook(x => x.HistoryId == history.HistoryId);
+            historyModel.HistoryStatus = true; // history kapadık
+            historyModel.CheckInDate = DateTime.Now; // bugun yaptik kapadik
+            historyModel.PriceTotal = Convert.ToDouble(history.PriceTotal);
 
-            //    _bookService.ChangeCheckOutStatus(history.BookId);
-            //}
-            //catch (Exception ex)
-            //{
-            //    throw;
-            //}
-            return RedirectToAction("Index", "Home");
+            try
+            {
+                _historyService.UpdateHistory(historyModel);
+                _bookService.ChangeCheckOutStatus(historyModel.BookId);// bu kısımda da kitap tekrar alınabilir hale getiriyoruz.
+            }
+            catch(Exception)
+            {
+                throw;
+            }
+            return RedirectToAction("Index", "Books");
         }
     }
 }

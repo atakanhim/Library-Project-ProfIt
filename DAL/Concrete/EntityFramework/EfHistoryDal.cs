@@ -20,7 +20,7 @@ namespace DAL.Concrete.EntityFramework
             using (DataContext c = new DataContext())
             {
 
-                return c.Histories.Include(x => x.Book).Where(filter).FirstOrDefault();
+                return c.Histories.Include(x => x.Book).Where(filter).Where(x=>x.HistoryStatus==false).FirstOrDefault();
 
             }
         }
