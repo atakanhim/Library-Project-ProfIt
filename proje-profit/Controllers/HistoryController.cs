@@ -42,16 +42,35 @@ namespace proje_profit.Controllers
             return RedirectToAction("Index", "Home");
         }
         public IActionResult CheckInView(int id)
-        {
+        {    
 
-               var model = _historyService.GetHistory(id);
-               
+               var model = _historyService.GetHistoryWithBook(x=>x.BookId==id);
+            var totaldays = (model.ExpectedCheckoutDate - DateTime.Now);
+                
+
                 if (model == null) 
                 return View();
-
-
-
             return View(model);
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult CheckInView(History history)
+        {
+            //try
+            //{
+            //    if (history.CheckOutDate == null)
+            //        history.CheckOutDate = DateTime.Now;
+            //    _historyService.AddHistory(history);
+
+            //    _bookService.ChangeCheckOutStatus(history.BookId);
+            //}
+            //catch (Exception ex)
+            //{
+            //    throw;
+            //}
+            return RedirectToAction("Index", "Home");
         }
     }
 }

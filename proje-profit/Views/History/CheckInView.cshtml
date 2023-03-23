@@ -3,6 +3,82 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
-}
-<h1>CheckInView</h1>
+    var bookid = ViewBag.BookId;
+    var now = DateTime.Now.ToShortDateString();
 
+}
+@section Scripts{
+    <script>
+        $( document ).ready(function() {
+       
+            var price = parseInt($("#kitapfiyati").val());
+            var end= $("#secondDate").datepicker("getDate");
+            var now = $.now();
+            days = (now - end) / (1000 * 60 * 60 * 24);
+            var fark = Math.round(days);
+            
+           
+            
+            if(fark<0)
+           {
+                $('form div:nth-last-child(3)')
+                    .html("<label class= 'control-label' for= 'PriceTotal'> Toplam Tutar </label>"
+                    +"<input type='number' class='form-control' readonly='' id='PriceTotal' name='PriceTotal' value='" + price + "'/>"
+                    +"<strong class='text-muted'>Kitap teslim tarihinden önce getirilmiştir. Teslim Tarihine kalan süre "+(fark*-1)+"</strong>");
+           }
+            else
+               {
+                $('form div:nth-last-child(3)')
+                    .html("<label class= 'control-label' for= 'PriceTotal'> Toplam Tutar </label>"
+                        + "<input type='number' class='form-control' readonly='' id='PriceTotal' name='PriceTotal' value='" + (price + (fark*5)) + "'/>"
+                        + "<strong class='text-muted'>Kitap teslim tarihinden " + fark + " gün sonra getirilmiştir. Her Geçen güç için 5 tl olacak şekilde yeniden hesaplanarak ,ödenecek tutar "+price+" + " +(fark * 5) + "tl olarak yeniden belirlenmiştir.</strong>");
+               }
+
+
+           
+        });
+    </script>
+}
+
+<h1 class="text-center  ">Check-In</h1>
+<form asp-action="CheckInView" asp-controller="History" method="post">
+    <div class="form-group d-none">
+        <label asp-for="HistoryId" class="control-label">Kiralayan kişi</label>
+        <input asp-for="HistoryId" class="form-control" readonly />
+    </div>
+    <div class="form-group">
+        <label asp-for="UserName" class="control-label">Kiralayan kişi</label>
+        <input asp-for="UserName" class="form-control" readonly />
+    </div>
+    <div class="form-group">
+        <label asp-for="UserPhone" class="control-label">Telefon numarası</label>
+        <input asp-for="UserPhone" type="number" class="form-control" readonly />
+    </div>
+    <div class="form-group">
+        <label asp-for="UserTc" class="control-label">Tc Kimlik Numarası</label>
+        <input asp-for="UserTc" type="number" class="form-control" readonly />
+    </div>
+    <div class="form-group">
+        <label asp-for="Book.BookTitle" class="control-label">Kitap Başlıgı</label>
+        <input asp-for="Book.BookTitle" class="form-control"  readonly />
+    </div>
+    <div class="form-group">
+        <label asp-for="Book.Price" class="control-label">Kitap Fiyatı</label>
+        <input id="kitapfiyati" asp-for="Book.Price" class="form-control" readonly />
+    </div>
+    <div class="form-group">
+        <label asp-for="CheckOutDate" class="control-label">Check-Out Olma Tarihi</label>
+        <input id="firstDate" asp-for="CheckOutDate" type="date"  class="form-control" readonly />
+    </div>
+    <div class="form-group">
+        <label asp-for="ExpectedCheckoutDate" class="control-label">Beklenen Teslim Tarihi</label>
+        <input id="secondDate" asp-for="ExpectedCheckoutDate" type="date" class="form-control" readonly />
+    </div>
+    <div class="form-group mt-3">
+       
+    </div>
+    <div class="form-group mt-3">
+        <input type="submit" value="Check-In İşlemini Tamamla" class="btn btn-primary" />
+    </div>
+
+</form>

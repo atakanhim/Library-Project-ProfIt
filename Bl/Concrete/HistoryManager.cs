@@ -4,6 +4,7 @@ using Entities.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -27,9 +28,9 @@ namespace BL.Concrete
            return _historyDal.GetList();
         }
 
-        public History GetHistory(int id)
+        public History GetHistoryWithBook(Expression<Func<History, bool>> filter)
         {
-           var History = _historyDal.Get(x => x.BookId == id);
+           var History = _historyDal.GetHistoryWithBook(filter);
             return History?? null;
         }
     }
