@@ -29,7 +29,7 @@ namespace BL.Concrete
 
         public History GetHistory(int id)
         {
-           var History = _historyDal.GetHistoryViewBook(x => x.BookId == id);
+           //var History = _historyDal.GetHistoryViewBook(x => x.BookId == id);
             return History ?? null;
         }
     }
