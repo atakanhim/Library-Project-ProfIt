@@ -8,24 +8,19 @@
     <script>
         $(document).ready(function () {
             var table = $('#example').DataTable();
-            var selectedRow ;
+            
+
+            // secili olan row mavi oluyor
             $('#example tbody').on('click', 'tr', function () {
                 if ($(this).hasClass('selected')) {
                     $(this).removeClass('selected');
                 } else {
                     table.$('tr.selected').removeClass('selected');
                     $(this).addClass('selected');
-                }
-               
-               //if(status == "true"){
-               //     $("td:last-child").html(" ");
-               //}
-         
-               //else
-               //alert("false");
-              
-             
+                }       
             });
+
+            // buton ataması yapılıyor
             $('table > tbody  > tr ').each(function (index, tr) {
                 var id = $(this).find("td:nth-child(1)").html().toLowerCase().trim()
                 var status = $(this).find("td:nth-last-child(2)").html().toLowerCase().trim()
@@ -35,14 +30,11 @@
                 }
                 else{
                     $(this).find("td:last-child()").html("<a href='/History/CheckInView/" + id + "'>Check-In</a>"); // true ise Details açılmayacak çünkü gösterilecek detail yok checkout yapılmamıs
-                }
+                }            
               
-                
-             
             });
-            $('#button').click(function () {
-                table.row('.selected').remove().draw(false);
-            });
+
+          
         });
     </script>
 }
@@ -97,10 +89,7 @@
             <td>
                 @item.CheckOutStatus
             </td>
-            <td>
-              
-                   
-                   
+            <td>            
                 </td>
         </tr>
 }
