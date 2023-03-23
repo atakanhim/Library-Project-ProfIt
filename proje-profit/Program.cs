@@ -9,6 +9,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddSingleton<IBookService, BookManager>();
 builder.Services.AddSingleton<IBookDal, EfBookDal>();
+builder.Services.AddSingleton<IHistoryService, HistoryManager>();
+builder.Services.AddSingleton<IHistoryDal, EfHistoryDal>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -28,6 +30,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Books}/{action=Index}/{id?}");
 
 app.Run();

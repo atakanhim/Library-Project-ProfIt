@@ -10,6 +10,8 @@ namespace BL.Abstract
     public interface IHistoryService
     {
         List<History> GetAll();
+
+        History GetHistory(int id);
     //    List<History> GetByCategory(int categoryId);
 
         void AddHistory(History History);

@@ -10,6 +10,7 @@ namespace DAL.Abstract
 {
     public interface IHistoryDal:IEntityRepository<History>
     {
+
         // Repositroy pattern
         //listeleme
         //ekleme

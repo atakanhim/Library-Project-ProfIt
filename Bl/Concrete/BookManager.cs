@@ -19,6 +19,11 @@ namespace BL.Concrete
             _bookDal = bookdal;
         }
 
+        public bool ChangeCheckOutStatus(int id)
+        {
+            return _bookDal.ChangeCheckOutStatus(id);
+        }
+
         public List<Book> GetAll()
         {
             return _bookDal.GetList();

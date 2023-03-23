@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace BL.Concrete
 {
-    public class HistoryManager : IHistoryService
+    public class HistoryManager : IHistoryService 
     {
         private  IHistoryDal _historyDal;
         public HistoryManager(IHistoryDal historyDal)
@@ -27,5 +27,10 @@ namespace BL.Concrete
            return _historyDal.GetList();
         }
 
+        public History GetHistory(int id)
+        {
+           var History = _historyDal.GetHistoryViewBook(x => x.BookId == id);
+            return History ?? null;
+        }
     }
 }

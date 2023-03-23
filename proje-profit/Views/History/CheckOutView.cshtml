@@ -1,6 +1,38 @@
-﻿@*
+﻿@model Entities.Concrete.History
+@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
+    var bookid = ViewBag.BookId;
+    var now = DateTime.Now.ToShortDateString();
 }
-<h1>CheckOutView</h1>
+<h1>CheckOutView </h1>
+<h2>@ViewBag.BookId</h2>
+
+<form asp-action="CheckOutView" asp-controller="History" method="post">
+
+    <div class="form-group">
+        <label asp-for="UserName" class="control-label"></label>
+        <input asp-for="UserName" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="UserPhone" class="control-label"></label>
+        <input asp-for="UserPhone" type="number" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="UserTc" class="control-label"></label>
+        <input asp-for="UserTc" type="number" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="BookId" class="control-label"></label>
+        <input asp-for="BookId" class="form-control" value="@bookid" readonly />
+    </div>
+    <div class="form-group">
+        <label asp-for="CheckOutDate" class="control-label"></label>
+        <input asp-for="CheckOutDate" type="datetime-local" value="@now" class="form-control" />
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Create" class="btn btn-primary" />
+    </div>
+
+</form>

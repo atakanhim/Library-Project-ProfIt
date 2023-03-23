@@ -11,6 +11,10 @@ namespace BL.Abstract
     {
 
         List<Book> GetAll();
-    
+
+
+        bool ChangeCheckOutStatus(int id);
+
+
     }
 }

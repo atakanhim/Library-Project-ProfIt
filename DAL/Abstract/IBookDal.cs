@@ -10,5 +10,6 @@ namespace DAL.Abstract
 {
     public interface IBookDal:IEntityRepository<Book>
     {
+        bool ChangeCheckOutStatus(int id);
     }
 }
