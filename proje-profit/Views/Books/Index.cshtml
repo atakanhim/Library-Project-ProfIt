@@ -7,15 +7,51 @@
 @section Scripts{
     <script>
         $(document).ready(function () {
-            console.log("ready!");
+            var table = $('#example').DataTable();
+            var selectedRow ;
+            $('#example tbody').on('click', 'tr', function () {
+                if ($(this).hasClass('selected')) {
+                    $(this).removeClass('selected');
+                } else {
+                    table.$('tr.selected').removeClass('selected');
+                    $(this).addClass('selected');
+                }
+               
+               //if(status == "true"){
+               //     $("td:last-child").html(" ");
+               //}
+         
+               //else
+               //alert("false");
+              
+             
+            });
+            $('table > tbody  > tr ').each(function (index, tr) {
+                var id = $(this).find("td:nth-child(1)").html().toLowerCase().trim()
+                var status = $(this).find("td:nth-last-child(2)").html().toLowerCase().trim()
+                console.log(status);
+                if(status == "true"){
+                    $(this).find("td:last-child()").html("<a href='/History/CheckOutView/" + id + "'>Check-Out</a>"); // true ise Details açılmayacak çünkü gösterilecek detail yok checkout yapılmamıs
+                }
+                else{
+                    $(this).find("td:last-child()").html("<a href='/History/CheckInView/" + id + "'>Check-In</a>"); // true ise Details açılmayacak çünkü gösterilecek detail yok checkout yapılmamıs
+                }
+              
+                
+             
+            });
+            $('#button').click(function () {
+                table.row('.selected').remove().draw(false);
+            });
         });
     </script>
 }
 
 
-<table class="table">
+<table id="example" class="display" style="width:100%">
     <thead>
         <tr>
+            <th class="d-none "></th>
             <th>
                 @Html.DisplayNameFor(model => model.BookTitle)
             </th>
@@ -41,7 +77,8 @@
     </thead>
     <tbody>
 @foreach (var item in Model) {
-        <tr>
+             <tr>
+                <td class="d-none">@item.BookId</td>
             <td>
                 @Html.DisplayFor(modelItem => item.BookTitle)
             </td>
@@ -62,9 +99,9 @@
             </td>
             <td>
               
-                <a asp-action="Details" asp-route-id="@item.BookId">Details</a> |
-               
-            </td>
+                   
+                   
+                </td>
         </tr>
 }
     </tbody>
