@@ -1,8 +1,6 @@
 ﻿using BL.Abstract;
 using Entities.Concrete;
 using Microsoft.AspNetCore.Mvc;
-using proje_profit.Models;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace proje_profit.Controllers
 {
@@ -30,21 +28,16 @@ namespace proje_profit.Controllers
         {
             try
             {
-
-                var myNewDate = history.CheckOutDate.Value.AddDays(15);
-
-
                 DateTime? _checkoutdate = history.CheckOutDate;
                 if (_checkoutdate == null)
                     history.CheckOutDate = DateTime.Now;
-                else if (_checkoutdate > DateTime.Now)// client tarafındada küçükse kontrl edilcel
-                    history.ExpectedCheckoutDate=myNewDate.Date;
-
-                
+                else if (_checkoutdate.HasValue)
+                {
+                    DateTime date = new DateTime(history.CheckOutDate.Value.Ticks).AddDays(15);
+                    history.ExpectedCheckoutDate = date;
+                }
 
                 _historyService.AddHistory(history);
-
-
                 _bookService.ChangeCheckOutStatus(history.BookId);
             }
             catch (Exception)
