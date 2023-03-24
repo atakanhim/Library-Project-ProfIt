@@ -26,10 +26,10 @@
                 var status = $(this).find("td:nth-last-child(2)").html().toLowerCase().trim()
                 console.log(status);
                 if(status == "true"){
-                    $(this).find("td:last-child()").html("<a href='/History/CheckOutView/" + id + "'>Check-Out</a>"); // true ise Details açılmayacak çünkü gösterilecek detail yok checkout yapılmamıs
+                    $(this).find("td:last-child()").html("<a class='btn btn-success w-100 text-center' href='/History/CheckOutView/" + id + "'>Check-Out</a>"); // true ise Details açılmayacak çünkü gösterilecek detail yok checkout yapılmamıs
                 }
                 else{
-                    $(this).find("td:last-child()").html("<a href='/History/CheckInView/" + id + "'>Check-In</a>"); // true ise Details açılmayacak çünkü gösterilecek detail yok checkout yapılmamıs
+                    $(this).find("td:last-child()").html("<a class='btn btn-primary w-100 text-center' href='/History/CheckInView/" + id + "'>Check-In</a>"); // true ise Details açılmayacak çünkü gösterilecek detail yok checkout yapılmamıs
                 }            
               
             });

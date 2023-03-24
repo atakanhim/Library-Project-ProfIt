@@ -12,8 +12,45 @@
 @section Scripts{
     <script>
         $(document).ready(function () {
-            $("#phone").mask("(999) 999-9999", { autoclear: false });
+            $("#phone").mask("(999) 999-9999",  { autoclear: false });
+            var input = $("#phone");
+            input.oninvalid = function (event) {
+                event.target.setCustomValidity('Telefon numarası 11 haneli olmalıdır');
+            }
 
+            $("form").validate({
+                rules: {
+                    "UserName": {
+                        required: true,
+                    
+                    },
+                    "UserTc": {
+                        required: true,
+                        minlength: 11,
+                        maxlength:11
+                    },
+                    "UserPhone": {
+                        required: true,
+                        minlength: 14,
+                        maxlength: 14
+                    },
+                },
+                messages: {
+                    "UserName": {
+                        required: "Lütfen, Bir isim giriniz."
+                    },
+                    "UserTc": {
+                        required: "Lütfen, Tc giriniz.",
+                        minlength: "Tc kimlik numarası geçersiz.",
+                        maxlength: "Tc kimlik numarası geçersiz."
+                    },
+                    "UserPhone": {
+                        required: "Lütfen, Tel giriniz.",
+                        minlength: "Telefon numarası geçersiz.",
+                        maxlength: "Telefon numarası geçersiz."
+                    }
+                }
+            });
         });
 
 
@@ -22,22 +59,34 @@
 
 <h1 class="text-center  ">Check-Out</h1>
 
+<style>
 
+    label {
+        display: block;
+    }
+
+    input.error {
+        border: 1px solid red;
+    }
+
+    label.error {
+        font-weight: normal;
+        color: red;
+    }
+</style>
 <form asp-action="CheckOutView" asp-controller="History" method="post">
 
     <div class="form-group">
         <label asp-for="UserName" class="control-label"></label>
-        <input asp-for="UserName" class="form-control" />
+        <input asp-for="UserName" class="form-control"/>
     </div>
     <div class="form-group">
         <label asp-for="UserPhone" class="control-label"></label>
-        <input asp-for="UserPhone" type="tel" class="form-control"
-               pattern='^\(\d{3}\) \d{3}-\d{4}$'
-               id="phone">
+        <input asp-for="UserPhone" type="tel" class="form-control" id="phone">
     </div>
     <div class="form-group">
         <label asp-for="UserTc" class="control-label"></label>
-        <input asp-for="UserTc" type="number" class="form-control" />
+        <input asp-for="UserTc" type="number" class="form-control"/>
     </div>
     <div class="form-group">
         <label asp-for="BookId" class="control-label"></label>
@@ -49,7 +98,7 @@
     </div>
  
     <div class="form-group mt-5">
-        <input type="submit" value="Create" class="btn btn-primary" />
+        <input type="submit" value="Check-Out İşlemini Tamamla" class="btn btn-success" />
     </div>
 
 </form>
