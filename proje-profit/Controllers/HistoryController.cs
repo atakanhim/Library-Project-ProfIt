@@ -33,6 +33,7 @@ namespace proje_profit.Controllers
                     history.CheckOutDate = DateTime.Now;
                 else if (_checkoutdate.HasValue)
                 {
+                    // yeni bir checkout date girildigi zaman 15 gün sonrasına süre veriyor onun dısında defult deger zate 15 gün
                     DateTime date = new DateTime(history.CheckOutDate.Value.Ticks).AddDays(15);
                     history.ExpectedCheckoutDate = date;
                 }
