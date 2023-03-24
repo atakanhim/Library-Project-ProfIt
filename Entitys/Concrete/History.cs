@@ -16,7 +16,7 @@ namespace Entities.Concrete
 
         public string? UserName { get; set;}
 
-        public long? UserPhone { get; set;}
+        public string? UserPhone { get; set;}
 
         public long? UserTc { get; set; }
 

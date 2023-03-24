@@ -1,13 +1,27 @@
-﻿@model Entities.Concrete.History
+﻿
+@model Entities.Concrete.History
+
 @*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
     var bookid = ViewBag.BookId;
+    }
+
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $("#phone").mask("(999) 999-9999", { autoclear: false });
+
+        });
+
+
+    </script>
 }
 
-<h1>CheckOutView </h1>
-<h2>@ViewBag.BookId</h2>
+<h1 class="text-center  ">Check-Out</h1>
+
 
 <form asp-action="CheckOutView" asp-controller="History" method="post">
 
@@ -17,7 +31,9 @@
     </div>
     <div class="form-group">
         <label asp-for="UserPhone" class="control-label"></label>
-        <input asp-for="UserPhone" type="number" class="form-control" />
+        <input asp-for="UserPhone" type="tel" class="form-control"
+               pattern='^\(\d{3}\) \d{3}-\d{4}$'
+               id="phone">
     </div>
     <div class="form-group">
         <label asp-for="UserTc" class="control-label"></label>
@@ -31,8 +47,8 @@
         <label asp-for="CheckOutDate" class="control-label"></label>
         <input id ="datetime1" asp-for="CheckOutDate" type="datetime-local" class="form-control" />
     </div>
-   
-    <div class="form-group">
+ 
+    <div class="form-group mt-5">
         <input type="submit" value="Create" class="btn btn-primary" />
     </div>
 
