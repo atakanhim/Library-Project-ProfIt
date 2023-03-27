@@ -64,6 +64,7 @@ namespace proje_profit.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult CheckInView(History history)
         {
+
             var historyModel = _historyService.GetHistoryWithBook(x => x.HistoryId == history.HistoryId);
             historyModel.HistoryStatus = true; // history kapadık
             historyModel.CheckInDate = DateTime.Now; // bugun yaptik kapadik
