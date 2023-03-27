@@ -13,7 +13,7 @@ namespace DAL.Concrete.EntityFramework.Contexts
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer
-                (@"Server=DESKTOP-LAOJIR7;initial catalog=proje-library;integrated security=true");
+                (@"Server=DESKTOP-LAOJIR7;initial catalog=proje-library;integrated security=true;Encrypt=False");
 
             base.OnConfiguring(optionsBuilder);
         }

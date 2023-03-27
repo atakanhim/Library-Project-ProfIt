@@ -8,10 +8,12 @@ namespace proje_profit.Controllers
     {
         private IHistoryService _historyService;
         private IBookService _bookService;
-        public HistoryController(IHistoryService historyService, IBookService bookService)
+        private readonly ILogger<BooksController> logger;
+        public HistoryController(IHistoryService historyService, IBookService bookService, ILogger<BooksController> logger)
         {
             _historyService = historyService;
             _bookService = bookService;
+            this.logger = logger;
         }
         public IActionResult Index()
         {
@@ -43,6 +45,7 @@ namespace proje_profit.Controllers
             }
             catch (Exception)
             {
+                logger.LogError("CheckOut-Post işlemi yapılırken bir hata ile karşılaşıldı.");
                 throw;
             }
             return RedirectToAction("Index", "Books");
@@ -54,9 +57,13 @@ namespace proje_profit.Controllers
             var totaldays = (model.ExpectedCheckoutDate - DateTime.Now);
                 
 
-                if (model == null) 
-                return View();
-            return View(model);
+                if (model == null)
+                  {
+                        logger.LogError("CheckIn-Get işlemi yapılırken bir hata ile karşılaşıldı.");
+                        return View();
+                  }
+              
+                 return View(model);
         }
 
 
@@ -76,6 +83,7 @@ namespace proje_profit.Controllers
             }
             catch(Exception)
             {
+                logger.LogError("CheckIn-Post işlemi yapılırken bir hata ile karşılaşıldı.");
                 throw;
             }
             return RedirectToAction("Index", "Books");

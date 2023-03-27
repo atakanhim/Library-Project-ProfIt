@@ -10,24 +10,19 @@
 
 
 @section Scripts{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
     <script>
         $(document).ready(function () {
-            $("#phone").mask("(999) 999-9999",  { autoclear: false });
-            var input = $("#phone");
-            input.oninvalid = function (event) {
-                event.target.setCustomValidity('Telefon numarası 11 haneli olmalıdır');
-            }
-
             $("form").validate({
                 rules: {
                     "UserName": {
                         required: true,
-                    
+
                     },
                     "UserTc": {
                         required: true,
                         minlength: 11,
-                        maxlength:11
+                        maxlength: 11
                     },
                     "UserPhone": {
                         required: true,
@@ -51,6 +46,38 @@
                     }
                 }
             });
+       
+            // mask eklendi
+            $("#phone").mask("(999) 999-9999", { autoclear: false });
+            var input = $("#phone");
+            input.oninvalid = function (event) {
+                event.target.setCustomValidity('Telefon numarası 11 haneli olmalıdır');
+            }
+
+
+                    //const offset = new Date().getTimezoneOffset() * 1000 * 60
+            //const getLocalDate = value => {
+            //    const offsetDate = new Date(value).valueOf() - offset
+            //    const date = new Date(offsetDate).toISOString()
+            //    return date.substring(0, 16)
+            //}
+
+            //console.log(getLocalDate);
+            //$("#datetime1").val(getLocxalDate);
+
+
+            $("#checkoutBtn").click(function () {
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Check-Out İşlemi tamamlandı',
+                    showConfirmButton: false,
+                    timer: 1000
+                });
+            });
+
+
+           
         });
 
 
@@ -98,7 +125,7 @@
     </div>
  
     <div class="form-group mt-5">
-        <input type="submit" value="Check-Out İşlemini Tamamla" class="btn btn-success" />
+        <input type="submit" value="Check-Out İşlemini Tamamla" id="checkoutBtn" class="btn btn-success" />
     </div>
 
 </form>

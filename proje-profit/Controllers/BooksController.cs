@@ -14,17 +14,27 @@ namespace proje_profit.Controllers
     public class BooksController : Controller
     {
     
+        private readonly ILogger<BooksController> logger;
         private IBookService _bookService;
 
-        public BooksController(IBookService bookService)
+        public BooksController(IBookService bookService , ILogger<BooksController> logger)
         {
+            this.logger = logger;
             _bookService = bookService;
         }
 
         // GET: Books
         public IActionResult Index()
         {
-              return View(_bookService.GetAll());
+           try
+            {
+                return View(_bookService.GetAll());
+            }
+            catch
+            {
+                logger.LogError("Kitaplar listelenemedi");
+                return View();
+            }
         }
 
        

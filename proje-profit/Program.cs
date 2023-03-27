@@ -2,6 +2,8 @@ using BL.Abstract;
 using BL.Concrete;
 using DAL.Abstract;
 using DAL.Concrete.EntityFramework;
+using Serilog;
+using Serilog.Core;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +13,18 @@ builder.Services.AddSingleton<IBookService, BookManager>();
 builder.Services.AddSingleton<IBookDal, EfBookDal>();
 builder.Services.AddSingleton<IHistoryService, HistoryManager>();
 builder.Services.AddSingleton<IHistoryDal, EfHistoryDal>();
+
+Logger log = new LoggerConfiguration()
+    .WriteTo.Console()
+    .MinimumLevel.Error()
+    .WriteTo.File("logs/log.txt")
+    .CreateLogger();
+
+builder.Host.ConfigureLogging(a =>
+{
+    a.ClearProviders();
+}).UseSerilog(log);
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
