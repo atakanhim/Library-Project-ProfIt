@@ -5,7 +5,7 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
-    var bookid = ViewBag.BookId;
+    var bookid = TempData["data"];
     }
 
 
@@ -13,6 +13,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
     <script>
         $(document).ready(function () {
+
             $("form").validate({
                 rules: {
                     "UserName": {
@@ -72,7 +73,7 @@
                     icon: 'success',
                     title: 'Check-Out İşlemi tamamlandı',
                     showConfirmButton: false,
-                    timer: 1000
+                    timer: 3000
                 });
             });
 

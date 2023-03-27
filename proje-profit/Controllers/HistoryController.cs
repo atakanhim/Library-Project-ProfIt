@@ -21,7 +21,7 @@ namespace proje_profit.Controllers
         }
         public IActionResult CheckOutView(int id)
         {
-            ViewBag.BookId = id;
+            TempData["data"] = id;
             return View();
         }
         [HttpPost]
