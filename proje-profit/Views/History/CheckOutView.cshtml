@@ -5,7 +5,7 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
-    var bookid = TempData["data"];
+    var bookid = ViewData["data"];
     }
 
 
@@ -23,7 +23,8 @@
                     "UserTc": {
                         required: true,
                         minlength: 11,
-                        maxlength: 11
+                        maxlength: 11,
+                        tcno:true
                     },
                     "UserPhone": {
                         required: true,
@@ -47,7 +48,32 @@
                     }
                 }
             });
-       
+            $.validator.addMethod("tcno", function (value, element) {
+
+                var firstDigit = parseInt(value.charAt(0));
+                var secondDigit = parseInt(value.charAt(1));
+                var thirdDigit = parseInt(value.charAt(2));
+                var fourthDigit = parseInt(value.charAt(3));
+                var fifthDigit = parseInt(value.charAt(4));
+                var sixthDigit = parseInt(value.charAt(5));
+                var seventhDigit = parseInt(value.charAt(6));
+                var eighthDigit = parseInt(value.charAt(7));
+                var ninthDigit = parseInt(value.charAt(8));
+                var tenthDigit = parseInt(value.charAt(9));
+                var eleventhDigit = parseInt(value.charAt(10));
+                var firstTotal = firstDigit + thirdDigit + fifthDigit + seventhDigit + ninthDigit;
+                var secondTotal = secondDigit + fourthDigit + sixthDigit + eighthDigit;
+                firstTotal *= 7;
+                secondTotal *= 9
+                var total = firstTotal + secondTotal;
+
+                if (((total % 10) == tenthDigit) && (((firstDigit + thirdDigit + fifthDigit + seventhDigit + ninthDigit + secondDigit + fourthDigit + sixthDigit + eighthDigit + tenthDigit) % 10) == eleventhDigit) && (firstDigit != 0) && ((eleventhDigit % 2) != 1)) {
+
+                    return true;
+
+                }
+                return false;
+            }, "Lütfen geçerli bir TC Kimlik numarası girin");
             // mask eklendi
             $("#phone").mask("(999) 999-9999", { autoclear: false });
             var input = $("#phone");
@@ -67,16 +93,7 @@
             //$("#datetime1").val(getLocxalDate);
 
 
-            $("#checkoutBtn").click(function () {
-                Swal.fire({
-                    position: 'top-end',
-                    icon: 'success',
-                    title: 'Check-Out İşlemi tamamlandı',
-                    showConfirmButton: false,
-                    timer: 3000
-                });
-            });
-
+      
 
            
         });

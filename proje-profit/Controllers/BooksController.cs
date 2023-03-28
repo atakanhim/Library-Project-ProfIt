@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using DAL.Concrete.EntityFramework.Contexts;
 using Entities.Concrete;
 using BL.Abstract;
+using Newtonsoft.Json;
+using proje_profit.Models;
 
 namespace proje_profit.Controllers
 {
@@ -26,7 +28,16 @@ namespace proje_profit.Controllers
         // GET: Books
         public IActionResult Index()
         {
-           try
+
+        
+                if (TempData["alert"] != null)
+                {
+                    var data = TempData["alert"].ToString();
+                    var err = JsonConvert.DeserializeObject<AlertModel>(data);
+                     ViewData["error"]= err;
+                }
+
+            try
             {
                 return View(_bookService.GetAll());
             }
