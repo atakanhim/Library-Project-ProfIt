@@ -5,29 +5,26 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
-    var bookid = ViewBag.BookId;
+    var bookid = ViewData["data"];
     }
 
 
 @section Scripts{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
     <script>
         $(document).ready(function () {
-            $("#phone").mask("(999) 999-9999",  { autoclear: false });
-            var input = $("#phone");
-            input.oninvalid = function (event) {
-                event.target.setCustomValidity('Telefon numarası 11 haneli olmalıdır');
-            }
 
             $("form").validate({
                 rules: {
                     "UserName": {
                         required: true,
-                    
+
                     },
                     "UserTc": {
                         required: true,
                         minlength: 11,
-                        maxlength:11
+                        maxlength: 11,
+                        tcno:true
                     },
                     "UserPhone": {
                         required: true,
@@ -51,6 +48,54 @@
                     }
                 }
             });
+            $.validator.addMethod("tcno", function (value, element) {
+
+                var firstDigit = parseInt(value.charAt(0));
+                var secondDigit = parseInt(value.charAt(1));
+                var thirdDigit = parseInt(value.charAt(2));
+                var fourthDigit = parseInt(value.charAt(3));
+                var fifthDigit = parseInt(value.charAt(4));
+                var sixthDigit = parseInt(value.charAt(5));
+                var seventhDigit = parseInt(value.charAt(6));
+                var eighthDigit = parseInt(value.charAt(7));
+                var ninthDigit = parseInt(value.charAt(8));
+                var tenthDigit = parseInt(value.charAt(9));
+                var eleventhDigit = parseInt(value.charAt(10));
+                var firstTotal = firstDigit + thirdDigit + fifthDigit + seventhDigit + ninthDigit;
+                var secondTotal = secondDigit + fourthDigit + sixthDigit + eighthDigit;
+                firstTotal *= 7;
+                secondTotal *= 9
+                var total = firstTotal + secondTotal;
+
+                if (((total % 10) == tenthDigit) && (((firstDigit + thirdDigit + fifthDigit + seventhDigit + ninthDigit + secondDigit + fourthDigit + sixthDigit + eighthDigit + tenthDigit) % 10) == eleventhDigit) && (firstDigit != 0) && ((eleventhDigit % 2) != 1)) {
+
+                    return true;
+
+                }
+                return false;
+            }, "Lütfen geçerli bir TC Kimlik numarası girin");
+            // mask eklendi
+            $("#phone").mask("(999) 999-9999", { autoclear: false });
+            var input = $("#phone");
+            input.oninvalid = function (event) {
+                event.target.setCustomValidity('Telefon numarası 11 haneli olmalıdır');
+            }
+
+
+                    //const offset = new Date().getTimezoneOffset() * 1000 * 60
+            //const getLocalDate = value => {
+            //    const offsetDate = new Date(value).valueOf() - offset
+            //    const date = new Date(offsetDate).toISOString()
+            //    return date.substring(0, 16)
+            //}
+
+            //console.log(getLocalDate);
+            //$("#datetime1").val(getLocxalDate);
+
+
+      
+
+           
         });
 
 
@@ -98,7 +143,7 @@
     </div>
  
     <div class="form-group mt-5">
-        <input type="submit" value="Check-Out İşlemini Tamamla" class="btn btn-success" />
+        <input type="submit" value="Check-Out İşlemini Tamamla" id="checkoutBtn" class="btn btn-success" />
     </div>
 
 </form>
