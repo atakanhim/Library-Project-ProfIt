@@ -24,7 +24,7 @@
                         required: true,
                         minlength: 11,
                         maxlength: 11,
-                        tcno:true
+                   
                     },
                     "UserPhone": {
                         required: true,
@@ -82,16 +82,24 @@
             }
 
 
-                    //const offset = new Date().getTimezoneOffset() * 1000 * 60
-            //const getLocalDate = value => {
-            //    const offsetDate = new Date(value).valueOf() - offset
-            //    const date = new Date(offsetDate).toISOString()
-            //    return date.substring(0, 16)
-            //}
-
-            //console.log(getLocalDate);
-            //$("#datetime1").val(getLocxalDate);
-
+            $("#form").submit(function (event) {
+                event.preventDefault();
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "Check-Out işlemi gerçekleşsin mi?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Evet'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $('#form').unbind('submit').submit();
+                    }
+                    
+                })
+              
+            });
 
       
 
@@ -119,7 +127,7 @@
         color: red;
     }
 </style>
-<form asp-action="CheckOutView" asp-controller="History" method="post">
+<form id="form" asp-action="CheckOutView" asp-controller="History" method="post">
 
     <div class="form-group">
         <label asp-for="UserName" class="control-label"></label>
