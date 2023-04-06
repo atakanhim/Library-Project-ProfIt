@@ -46,8 +46,22 @@ namespace proje_profit.Controllers
                 return View();
             }
         }
+        [HttpGet]
+        public IActionResult Add()
+        {
 
-       
+            return View();
+        }
+        [HttpPost]
+        public IActionResult Add(BooksViewModel model)
+        {
+            if (ModelState.IsValid)
+            { 
 
+
+                return RedirectToAction("Index");
+            }
+            return View(model);// tekrar veri girsin
+        }
     }
 }
