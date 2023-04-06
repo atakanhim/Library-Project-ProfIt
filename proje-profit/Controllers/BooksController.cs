@@ -10,9 +10,11 @@ using Entities.Concrete;
 using BL.Abstract;
 using Newtonsoft.Json;
 using proje_profit.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace proje_profit.Controllers
 {
+ 
     public class BooksController : Controller
     {
     
@@ -27,16 +29,13 @@ namespace proje_profit.Controllers
 
         // GET: Books
         public IActionResult Index()
-        {
-
-        
+        { 
                 if (TempData["alert"] != null)
                 {
                     var data = TempData["alert"].ToString();
                     var err = JsonConvert.DeserializeObject<AlertModel>(data);
                      ViewData["error"]= err;
                 }
-
             try
             {
                 return View(_bookService.GetAll());
@@ -47,8 +46,22 @@ namespace proje_profit.Controllers
                 return View();
             }
         }
+        [HttpGet]
+        public IActionResult Add()
+        {
 
-       
+            return View();
+        }
+        [HttpPost]
+        public IActionResult Add(BooksViewModel model)
+        {
+            if (ModelState.IsValid)
+            { 
 
+
+                return RedirectToAction("Index");
+            }
+            return View(model);// tekrar veri girsin
+        }
     }
 }

@@ -1,0 +1,16 @@
+﻿@model BooksViewModel
+
+<div asp-validation-summary="ModelOnly"></div>
+
+<form asp-action="add" method="post">
+    Id: <input asp-for="BookTitle" /> <span asp-validation-for="BookTitle"></span>
+    <br />
+    Name: <input asp-for="BookAuthor" /> <span asp-validation-for="BookAuthor"></span>
+    <br />
+    ISBN: <input asp-for="ISBN" /> <span asp-validation-for="ISBN"></span>
+    <br />
+   
+
+    <br /><br />
+    <input type="submit" value="submit" />
+</form>

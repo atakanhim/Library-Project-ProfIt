@@ -1,12 +1,14 @@
 ﻿using BL.Abstract;
 using Core.DataAccess.Abstract;
 using Entities.Concrete;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using proje_profit.Models;
 
 namespace proje_profit.Controllers
 {
+    [Authorize(Roles = "admin")] // sadece admin özel
     public class HistoryController : Controller
     {
         private IHistoryService _historyService;
