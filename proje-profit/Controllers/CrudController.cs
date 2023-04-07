@@ -26,9 +26,17 @@ namespace proje_profit.Controllers
         {
             HttpClient httpClient = _httpClientFactory.CreateClient();
 
-            var response = await httpClient.GetAsync(this.ApiUrl + "api/category");
+            //var response = await httpClient.GetAsync(this.ApiUrl + "api/category");
+            //var responseString = await response.Content.ReadAsStringAsync(); // datayı okunabilir kıldık
+            //List<CrudModel> crudModel = JsonConvert.DeserializeObject<List<CrudModel>>(responseString);
+
+            var response = await httpClient.GetAsync(this.ApiUrl + "api/menu");
             var responseString = await response.Content.ReadAsStringAsync(); // datayı okunabilir kıldık
-            List<CrudModel> crudModel = JsonConvert.DeserializeObject<List<CrudModel>>(responseString);
+            List<MenuModel> crudModel = JsonConvert.DeserializeObject<List<MenuModel>>(responseString);
+
+
+
+
 
             return RedirectToAction("Index");
         }
